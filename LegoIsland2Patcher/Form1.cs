@@ -69,10 +69,11 @@ namespace LegoIsland2Patcher
         private void identifyVersion()
         {
             //List of known versions
-            exeVersion[] exeVersions = { createExeVersion("English Version 1",    0x52, "LEGO Island 2.exe", 0x529D, 0xA495, 0x2A870),
-                                         createExeVersion("English Version 2",    0x7A, "LEGO Island 2.exe", 0x529D, 0xA495, 0x2A870),
-                                         createExeVersion("Spanish Version",      0xCF, "Isola LEGO 2.exe",  0x52FD, 0xA765, 0x3DFA0),
-                                         createExeVersion("Unidentified Version", 0x52, "LEGO Island 2.exe", 0x529D, 0xA495, 0x2A870) };
+            exeVersion[] exeVersions = { createExeVersion("English Version 1",    0x52, "LEGO Island 2.exe", 0x529D, 7,  21, 0xA495, 0x2A870),
+                                         createExeVersion("English Version 2",    0x7A, "LEGO Island 2.exe", 0x529D, 7,  21, 0xA495, 0x2A870),
+                                         createExeVersion("Spanish Version",      0xCF, "Isola LEGO 2.exe",  0x52FD, 7,  21, 0xA765, 0x3DFA0),
+                                         createExeVersion("Dutch Version",        0x98, "LEGO eiland 2.exe", 0x52D6, 12, 31, 0xCAC3, 0x43C70),
+                                         createExeVersion("Unidentified Version", 0x52, "LEGO Island 2.exe", 0x529D, 7,  21, 0xA495, 0x2A870) };
 
             //If a known version was not found, default to the unidentified version
             int foundVersionIndex = exeVersions.Length - 1;
@@ -395,8 +396,21 @@ namespace LegoIsland2Patcher
         //Write new resolutions to file
         private void applyResolution()
         {
-            long[] resOffsetW = { exeData.resOffset, exeData.resOffset + 21, exeData.resOffset + 42, exeData.resOffset + 63 };
-            long[] resOffsetH = { exeData.resOffset + 7, exeData.resOffset + 28, exeData.resOffset + 49, exeData.resOffset + 72 };
+            //long[] resOffsetW = { exeData.resOffset, exeData.resOffset + 21, exeData.resOffset + 42, exeData.resOffset + 63 };
+            //long[] resOffsetH = { exeData.resOffset + 7, exeData.resOffset + 28, exeData.resOffset + 49, exeData.resOffset + 72 };
+
+            int resSep = exeData.resSep;
+            int resDis = exeData.resDis;
+
+            long[] resOffsetW = { exeData.resOffset,
+                                  exeData.resOffset + resDis,
+                                  exeData.resOffset + (resDis * 2),
+                                  exeData.resOffset + (resDis * 3) };
+
+            long[] resOffsetH = { resOffsetW[0] + resSep,
+                                  resOffsetW[1] + resSep,
+                                  resOffsetW[2] + resSep,
+                                  resOffsetW[3] + resSep };
 
             bool undoHack = true;            
 
@@ -551,7 +565,7 @@ namespace LegoIsland2Patcher
             MessageBox.Show("Done");
         }
 
-        static private exeVersion createExeVersion(string label, byte checkByte, string exeName, long resOff, long fovOff, long loadOff)
+        static private exeVersion createExeVersion(string label, byte checkByte, string exeName, long resOff, int resSep, int resDis, long fovOff, long loadOff)
         {
             exeVersion result = new exeVersion();
 
@@ -559,6 +573,8 @@ namespace LegoIsland2Patcher
             result.checkByte = checkByte;
             result.exeName = exeName;
             result.resOffset = resOff;
+            result.resSep = resSep;
+            result.resDis = resDis;
             result.fovOffset = fovOff;
             result.loadOffset = loadOff;
 
@@ -714,8 +730,24 @@ namespace LegoIsland2Patcher
         //Fill in resolution input
         private void checkResolutionMod()
         {
-            long[] resOffsetW = { exeData.resOffset, exeData.resOffset + 21, exeData.resOffset + 42, exeData.resOffset + 63 };
-            long[] resOffsetH = { exeData.resOffset + 7, exeData.resOffset + 28, exeData.resOffset + 49, exeData.resOffset + 72 };
+            int resSep = exeData.resSep;
+            int resDis = exeData.resDis;
+
+            long[] resOffsetW = { exeData.resOffset,
+                                  exeData.resOffset + resDis,
+                                  exeData.resOffset + (resDis * 2),
+                                  exeData.resOffset + (resDis * 3) };
+
+            long[] resOffsetH = { resOffsetW[0] + resSep,
+                                  resOffsetW[1] + resSep,
+                                  resOffsetW[2] + resSep,
+                                  resOffsetW[3] + resSep };
+           /*
+            long[] resOffsetH = { exeData.resOffset + resSep,
+                                  exeData.resOffset + resSep + resDis,
+                                  exeData.resOffset + resSep + (resDis * 2),
+                                  exeData.resOffset + resSep + (resDis };
+            * */
 
             byte[] virtualReal = File.ReadAllBytes(exeData.exeName);
             byte[] virtualBackup = File.ReadAllBytes("backup/" + exeData.exeName);
@@ -909,6 +941,8 @@ namespace LegoIsland2Patcher
         public byte checkByte;
         public string exeName;
         public long resOffset;
+        public int resSep; //Distance from W to H
+        public int resDis; //Distance from one resolution to the next
         public long fovOffset;
         public long loadOffset; //Long loading fix
     }
