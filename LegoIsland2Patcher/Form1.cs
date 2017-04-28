@@ -160,7 +160,7 @@ namespace LegoIsland2Patcher
 
                             if (parts.Length >= 3)
                             {
-                                originals = ToBytes(parts[1]);
+                                originals = ToBytes(parts[2]);
                             }
 
                             //Check if patch is valid
