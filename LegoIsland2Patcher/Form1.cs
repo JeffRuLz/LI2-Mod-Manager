@@ -73,6 +73,7 @@ namespace LegoIsland2Patcher
                                          createExeVersion("English Version 2",    0x7A, "LEGO Island 2.exe", 0x529D, 7,  21, 0xA495, 0x2A870),
                                          createExeVersion("Spanish Version",      0xCF, "Isola LEGO 2.exe",  0x52FD, 7,  21, 0xA765, 0x3DFA0),
                                          createExeVersion("Dutch Version",        0x98, "LEGO eiland 2.exe", 0x52D6, 12, 31, 0xCAC3, 0x43C70),
+                                         createExeVersion("German Version",       0x31, "LEGO Insel 2.exe",  0x52FD, 7,  21, 0xA765, 0x3E1A0),
                                          createExeVersion("Unidentified Version", 0x52, "LEGO Island 2.exe", 0x529D, 7,  21, 0xA495, 0x2A870) };
 
             //If a known version was not found, default to the unidentified version
@@ -938,12 +939,12 @@ namespace LegoIsland2Patcher
     public class exeVersion
     {
         public string label;
-        public byte checkByte;
+        public byte checkByte; //Byte value at position 0x128
         public string exeName;
-        public long resOffset;
+        public long resOffset; //See https://www.rockraidersunited.com/topic/7653-widescreen-hack-high-resolution/?tab=comments#comment-129128
         public int resSep; //Distance from W to H
         public int resDis; //Distance from one resolution to the next
-        public long fovOffset;
-        public long loadOffset; //Long loading fix
+        public long fovOffset; //Search for 00 00 40 3F
+        public long loadOffset; //Long loading fix. Search for 90 90 90 90 90 FF. Use the position of FF.
     }
 }
