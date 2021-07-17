@@ -238,7 +238,7 @@
             this.Controls.Add(this.btnApply);
             this.MinimumSize = new System.Drawing.Size(370, 280);
             this.Name = "Form1";
-            this.Text = "LI2 Mod Manager (v1.23)";
+            this.Text = "LI2 Mod Manager (v1.24)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbResolution.ResumeLayout(false);
             this.gbResolution.PerformLayout();
