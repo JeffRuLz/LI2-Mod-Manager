@@ -1,0 +1,3 @@
+Windowed Mode
+Iran & mumboking
+Force the game into windowed mode.

@@ -1,0 +1,3 @@
+Skipable Intro Videos
+mumboking
+Allows the first intro video to be skipped.
