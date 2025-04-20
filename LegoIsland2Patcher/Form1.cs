@@ -77,6 +77,10 @@ namespace LegoIsland2Patcher
                                          createExeVersion("Swedish Version",      0x08, "LEGO Island 2.exe", 0x52D6, 12, 31, 0xCAC3, 0x43C70),
                                          createExeVersion("Norwegian Version",    0xF6, "LEGO Island 2.exe", 0x52D6, 12, 31, 0xCAC3, 0x43C70),
                                          createExeVersion("French Version",       0x81, "L'île LEGO 2.exe",  0x52FD, 7,  21, 0xA765, 0x3E1E0),
+                                         // TODO1: The fov offset is just a guess and probably not right.
+                                         // TODO2: The hebrew version seem to crash when the No Intro Videos tick is on.
+                                         // The hebrew version can be found in the internet archive: https://archive.org/details/lego-island-2_202503
+                                         createExeVersion("Hebrew Version",       0x0B, "LEGO Island 2.exe", 0xFCE6, 12, 31, 0xE8A2, 0x4CC70),
                                          createExeVersion("Unidentified Version", 0x52, "LEGO Island 2.exe", 0x529D, 7,  21, 0xA495, 0x2A870) };
 
             //If a known version was not found, default to the unidentified version
