@@ -1,0 +1,3 @@
+No Load Delay
+Danish Version Support
+Removes artificial loading delays to speed up game loading.

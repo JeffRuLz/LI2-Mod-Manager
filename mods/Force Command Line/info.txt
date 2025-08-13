@@ -1,3 +1,3 @@
 Force /force Command Line
-Iran & mumboking
-Forces /force command line option.
+Iran & mumboking (Verified for Danish version)
+Forces /force command line option. Works with Danish LEGO øen 2.
